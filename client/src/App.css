@@ -1,0 +1,16 @@
+html, body{
+  	margin: 0px;
+  	padding: 0px;			
+}
+
+.App { 
+  	text-align: center;  
+}
+
+.centerDiv{
+	display: flex;
+	justify-content: center;
+}
+
+
+

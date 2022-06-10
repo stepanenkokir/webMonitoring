@@ -1,0 +1,19 @@
+{
+    "port":8010,
+    "jwtSecret":"Pao Npo Almaz TetraI",
+    "period":3,
+    "dbConfig":{
+        "HOST": "127.0.0.1",
+        "PORT":"8080",
+        "USER": "mlat",
+        "PASSWORD": "mlat",
+        "DB": "MONITORING",
+        "dialect": "mysql",
+        "pool": {
+          "max": 5,
+          "min": 0,
+          "acquire": 30000,
+          "idle": 10000
+        }
+    }
+}

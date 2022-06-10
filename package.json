@@ -1,0 +1,33 @@
+{
+  "name": "tetra-i",
+  "version": "0.0.1",
+  "description": "Visualisation and statistic of MLAT TETRA-I",
+  "dependencies": {
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "curlrequest": "^1.0.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.2",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "mysql2": "^2.3.0",
+    "node-fetch": "^3.1.0",
+    "sequelize": "^6.6.5",
+    "whatwg-fetch": "^3.6.2"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Kirill Stepanenko <stepanenkokir@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.2.2",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.13"
+  }
+}
