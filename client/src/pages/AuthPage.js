@@ -56,8 +56,13 @@ export const  SignIn = () =>  {
             const response = await request('/db/login','POST',{...form});                      
             auth.login(response.token, response.userId, response.name);
         }catch (e) {    
-           // console.log("ERRR_KEK",e);        
-            setErrorString("Ошибка авторизации. Нет доступа к базе данных. Попробуйте позже.");
+            //console.log("ERRR_KEK",e);        
+            let strErr = e;
+            if (String(e).includes('Unexpected'))
+                strErr = "Неизвестная ошибка сервера. Попробуйте позже"
+
+            //setErrorString("Ошибка авторизации. Нет доступа к базе данных. Попробуйте позже.");
+            setErrorString("Ошибка авторизации. "+strErr);
         }                     
     };
         

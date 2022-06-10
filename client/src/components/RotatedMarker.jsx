@@ -43,7 +43,9 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
         {...props}
       >
         {children}        
-        <Popup>{props.info.icao.toUpperCase()+"\n"+props.info.targetsIdentific+"\n"+props.info.Alt}</Popup>
+        <Popup>{props.info.icao.toUpperCase()+"\n"+
+                props.info.targetsIdentific+"\n"+
+                props.info.Alt}</Popup>
       </Marker>
     );
   });

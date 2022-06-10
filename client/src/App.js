@@ -6,32 +6,23 @@ import { useAuth } from "./hooks/auth.hook";
 import { AuthContext } from "./context/AuthContext";
 import Navbar from "./components/AppBar";
 
-
 export default function App() {  
 	const {token,login, logout, userId, userName} = useAuth(); 	
-	const isAuthenticated = !!token;
-	
+	const isAuthenticated = !!token;	
 	const [myroute, setMyRoute] = useState()
-
 
 	useEffect(()=>{
 		setMyRoute( useRoutes(isAuthenticated))
 	},[isAuthenticated])
 	
-
 	return (
 		<AuthContext.Provider value={{
 			token,login, logout, userId, userName, isAuthenticated
-		}}>			
-			<BrowserRouter>								
+		}}>
+			<BrowserRouter>
 				{isAuthenticated&&<Navbar /> }
-				<div className="contain">
-					{myroute}
-				</div>
+					{myroute}			
 			</BrowserRouter>
-		</AuthContext.Provider>		
+		</AuthContext.Provider>
 	)
-
 }
-
- 

@@ -1,7 +1,7 @@
 {
-  "name": "tetra-i",
+  "name": "monitoring-spb",
   "version": "0.0.1",
-  "description": "Visualisation and statistic of MLAT TETRA-I",
+  "description": "Visualisation and statistic of MLAT MONITORING",
   "dependencies": {
     "config": "^3.3.6",
     "cors": "^2.8.5",

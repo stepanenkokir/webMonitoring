@@ -55,19 +55,21 @@ const colorIicon = (color)=>{
   html: `<span style="${style}" />`
 })}
 
-export const Positions = () =>{
-    
-    
+export const Positions = () =>{        
     const {request} = useHttp();
-    const [positions, setPositions]=useState([]);
-    console.log("POSITIONS RENDER!!",positions.length);
+    const [positions, setPositions]=useState([]); 
+    
     const readPositionsFromServer = async ()=>{
         try{
             const response = await request('/mlat/positions','GET');                     
             const geojson = response.data;          
+            let cntrCrd={lat:0,lng:0}  
             let myPos=[];        
-            for (let i=0;i<geojson.features.length;i++){           
+            for (let i=0;i<geojson.features.length;i++){                           
                 if (geojson.features[i].properties.id){
+                    cntrCrd.lat+=geojson.features[i].geometry.coordinates[1]
+                    cntrCrd.lng+=geojson.features[i].geometry.coordinates[0]
+
                     myPos.push(                
                         <Marker 
                             key={geojson.features[i].properties.id} 
@@ -83,7 +85,15 @@ export const Positions = () =>{
                     )
                 }                        
             }      
-            setPositions(myPos)                    
+            setPositions(myPos) 
+            
+            if (myPos.length>0){
+                cntrCrd.lat/=myPos.length
+                cntrCrd.lng/=myPos.length
+                localStorage.setItem("centerPos",JSON.stringify(cntrCrd))
+            }
+            
+
         }catch(e){
             console.log("Error READ POSITIONS!!!",e);
         }

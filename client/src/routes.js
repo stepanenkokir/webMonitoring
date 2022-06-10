@@ -12,24 +12,21 @@ export const useRoutes = (isAuthenticated) =>{
     if (isAuthenticated){							
         return( 		    			
 				<Routes>
-					<Route path="/" element={<MapPage />} /> 
-					<Route path="/:icao" element={<MapPage />} />					
+					<Route path="/" element={<MapPage />} />			
 					<Route path="/settings" element={<SettingsPage />} />
 					<Route path="/stat" element={<StatusPage />} />
-					<Route path="/list" element={<ListPage />} />					
-
+					<Route path="/list" element={<ListPage />} />
 					<Route
 						path="*"
 						element={<Navigate to="/" />}
 					/>
-				</Routes> 			
+				</Routes>
         )
     }
-    return(       
+    return(
         <Routes>
-    		<Route path="*" element={<SignIn />} />    		    		
-  		</Routes>
-        
+    		<Route path="*" element={<SignIn />} />
+  		</Routes>        
     )
 }
 

@@ -14,13 +14,14 @@ router.post('/login', async (req, res) =>{
        // const posData = await db.positions.findAll({attributes: ['id','Name','Bl','Dl'], where:{Enabled:2}});    
        
        let myName=req.body.login;
+       console.log("LOGIN!!!",myName)
        let myPass = md5(md5(req.body.password));
        
        const user = await db.User.findOne({attributes:['id','name','type'], where:{name:myName, password: myPass}});
 
         if (!user){
             console.log("User не найден!!");
-            return res.status(400).json({message:'Пользователь не найден'});
+            return res.status(400).json({message:'Пользователь не найден',status:400});
         }            
         
         const token = jwt.sign(
@@ -32,7 +33,7 @@ router.post('/login', async (req, res) =>{
 
     } catch (error) {
         console.log("AI AI Ai", error)
-        res.status(500).json({message: 'Ошибка чтения базы (нет доступа к БД). Попробуйте позже.'});
+        res.status(500).json({message: 'Ошибка чтения базы (нет доступа к БД). Попробуйте позже.',status:500});
     } 
  })
 

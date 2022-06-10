@@ -1,10 +1,10 @@
 {
-    "port":8010,
-    "jwtSecret":"Pao Npo Almaz TetraI",
+    "port":5000,
+    "jwtSecret":"PJSC R&PA Almaz TetraI",
     "period":3,
     "dbConfig":{
-        "HOST": "127.0.0.1",
-        "PORT":"8080",
+        "HOST": "10.0.10.5",
+        "PORT":"8003",
         "USER": "mlat",
         "PASSWORD": "mlat",
         "DB": "MONITORING",

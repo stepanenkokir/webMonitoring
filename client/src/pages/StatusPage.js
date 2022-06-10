@@ -28,7 +28,7 @@ export const StatusPage = () =>{
              setNames(response.data);            
         }catch(e){
             console.log("Error 500",e);
-            if (String(e).startsWith('Error: 401')) 
+            if (String(e).includes('401')) 
                 setLogout(true)
         }
     }
@@ -82,7 +82,7 @@ export const StatusPage = () =>{
     
     return (         
         <Container component="main" maxWidth="xl">            
-             {logout && <ModalLogout/>}              
+            {logout && <ModalLogout/>}              
             <Stack spacing={2} sx={{ maxWidth: 200 }}>
             <Snackbar
                 anchorOrigin={{vertical:'top', horizontal:'left'}}
