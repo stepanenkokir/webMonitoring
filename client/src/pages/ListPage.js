@@ -1,4 +1,4 @@
-import {Container, Table, TableBody, TableCell,TableHead, TableContainer,  TableRow, Paper} from "@mui/material";
+import {Container, Table, TableBody, TableCell,TableHead, TableContainer,  TableRow, Paper, Typography} from "@mui/material";
 import React, { useEffect, useState } from "react"
 import { useHttp } from "../hooks/http.hooks";
 import { AuthContext } from "../context/AuthContext"
@@ -53,27 +53,29 @@ export const ListPage = () =>{
                 const ap=mapArr.map((row,id)=>{                   
                     return(
                         <TableRow                         
-                            hover 
-                            // component={Link}
-                            // to={'/icao'+row.mode_s}
+                            hover                             
                             key={row.mode_s+id} 
                             onClick={() => {                             
                                 handleClick(row.mode_s)                         
                             }}                             
                         >                                                
-                            <TableCell
-                            sx={{
-                                background: row.mlat_status==='on'?"#0F0":
-                                            row.adsb_status==='no-pos'?"#00F":""
-                            }}
-                            >
-                                M                                 
-                            </TableCell>
-                            <TableCell sx={{
-                                background: row.adsb_status==='on'?"#0F0":
-                                            row.adsb_status==='cpr-fail'?"#00F":""
-                            }}>
+                            <TableCell>
+                                <Typography
+                                    component="h5"
+                                    sx={{                                    
+                                        background: row.mlat_status==='on'?"#0F0":
+                                        row.adsb_status==='no-pos'?"#00000F":""
+                                        }}
+                                >
+                                M
+                                </Typography>                            
+                                <Typography 
+                                    sx={{
+                                        background: row.adsb_status==='on'?"#0F0":
+                                            row.adsb_status==='cpr-fail'?"lightblue":""
+                                }}>
                                 A
+                                </Typography>
                             </TableCell>                                                             
                             <TableCell> 
                                 <b><font color="green">
@@ -86,10 +88,7 @@ export const ListPage = () =>{
                             </TableCell> 
                             <TableCell>
                                 <b>{row.altitude}</b>
-                            </TableCell>     
-                            <TableCell>
-                                {row.movement_mode_symbol}
-                                <br/>                                    
+                            <br/>                                
                                 {row.mode_flags.on_ground&&                                        
                                     <img src="/images/gnd.png" alt="grnd" width="16" />
                                 }
@@ -105,22 +104,8 @@ export const ListPage = () =>{
     return (        
         <Container component="main" maxWidth="xl">  
             {logout && <ModalLogout/>}                      
-            <TableContainer component={Paper} sx={{ mt:1,minWidth: 300}}>
-                <Table stickyHeader  aria-label="a dense table" size="small"  >
-                    <TableHead  aria-label="simple table">                                
-                        <TableRow sx={{textAlign:"center"}}>                             
-                            <TableCell>
-                            </TableCell>
-                            <TableCell>
-                            </TableCell> 
-                            <TableCell>                            
-                            </TableCell>                            
-                            <TableCell>                                 
-                            </TableCell> 
-                            <TableCell>                               
-                            </TableCell>                                
-                        </TableRow>
-                    </TableHead>
+            <TableContainer component={Paper} sx={{ mt:1,minWidth: 200}}>
+                <Table stickyHeader   size="small">                    
                     <TableBody> 
                         {page}
                     </TableBody> 

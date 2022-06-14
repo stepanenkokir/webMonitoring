@@ -101,8 +101,10 @@ export const StatusPage = () =>{
                 </Snackbar>
             </Stack>                     
         <TableContainer component={Paper} sx={{  mt:1,minWidth: 200}}>
-            <Table stickyHeader  aria-label="a dense table" size="small"  >
-              <TableHead  aria-label="simple table">            
+            <Table 
+                stickyHeader                  
+                size="small"  >
+              <TableHead >
                 <TableRow>                    
                     <TableCell sx={{ maxWidth: 50}}><b>Позиция</b></TableCell>                   
                     <TableCell  sx={{ maxWidth: 50}}>ГНСС</TableCell>
@@ -123,7 +125,7 @@ export const StatusPage = () =>{
                         background: row.st!=='running'?(row.err!=20?'#EF5350':'#FFFF00'):
                             row.gps==='fix'?'#B2FF59':'#FFF000'
                     }}>                    
-                  <TableCell component="th" scope="row">{row.name}</TableCell>                  
+                  <TableCell sx={{wordWrap:'break-word'}} >{row.name}</TableCell>                  
                   <TableCell  sx={{ maxWidth: 50}}>{row.gps==='fix'?'OK':"-"}</TableCell>
                   <TableCell  sx={{ maxWidth: 50}}>{(+row.delay).toFixed(2)}</TableCell>
               </TableRow>                           

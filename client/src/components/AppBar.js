@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -205,15 +204,3 @@ const ResponsiveAppBar = () => {
     );
 };
 export default ResponsiveAppBar;
-
-
-/*
-
-{settings.map((setting,index) => (
-                                <MenuItem key={setting.title} onClick={handleCloseUserMenu}>                                    
-                                        <Link to={setting.link}>{setting.title}</Link>                                        
-                                </MenuItem>
-                            ))}
-
-
-                            */

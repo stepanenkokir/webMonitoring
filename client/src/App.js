@@ -8,7 +8,9 @@ import Navbar from "./components/AppBar";
 
 export default function App() {  
 	const {token,login, logout, userId, userName} = useAuth(); 	
-	const isAuthenticated = !!token;	
+	const isAuthenticated = !!token;
+	const showTargets = false
+	const showStatus  = false
 	const [myroute, setMyRoute] = useState()
 
 	useEffect(()=>{
@@ -17,7 +19,7 @@ export default function App() {
 	
 	return (
 		<AuthContext.Provider value={{
-			token,login, logout, userId, userName, isAuthenticated
+			token,login, logout, userId, userName, isAuthenticated, showTargets, showStatus
 		}}>
 			<BrowserRouter>
 				{isAuthenticated&&<Navbar /> }

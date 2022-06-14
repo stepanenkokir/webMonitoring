@@ -1,10 +1,8 @@
 import React from "react"
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { SignIn } from "./pages/AuthPage"
-import { ListPage } from "./pages/ListPage"
-import { MapPage } from "./pages/MapPage"
-import { StatusPage } from "./pages/StatusPage"
 import { SettingsPage } from "./pages/SettingsPage"
+import { MapPage } from "./pages/MapPage"
 
 export const useRoutes = (isAuthenticated) =>{	
 	//console.log("Routes ", isAuthenticated);
@@ -14,8 +12,8 @@ export const useRoutes = (isAuthenticated) =>{
 				<Routes>
 					<Route path="/" element={<MapPage />} />			
 					<Route path="/settings" element={<SettingsPage />} />
-					<Route path="/stat" element={<StatusPage />} />
-					<Route path="/list" element={<ListPage />} />
+					<Route path="/stat" element={<MapPage stat/>} />
+					<Route path="/list" element={<MapPage list />} />
 					<Route
 						path="*"
 						element={<Navigate to="/" />}

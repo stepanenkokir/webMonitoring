@@ -60,7 +60,7 @@ const Layers = (props) => {
 					<ZoneULR/>
 				</LayersControl.Overlay>	
 			</LayersControl>
-			<LayersControl  position="topleft">
+			<LayersControl  position="topright">
 				<LayersControl.Overlay checked  name={'АЗН-В'} >
 					<TargetsADSB/>
 				</LayersControl.Overlay>

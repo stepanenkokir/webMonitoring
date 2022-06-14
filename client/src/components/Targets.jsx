@@ -103,7 +103,7 @@ const Targets = (props) =>{
                 parseData(response.data.features);
         
         }catch(e){
-            console.log("Error CURRENT ==> ",e);
+           // console.log("Error CURRENT ==> ",e);
             if (String(e).includes('401')) 
             {
                 console.log("Send logout!!");
