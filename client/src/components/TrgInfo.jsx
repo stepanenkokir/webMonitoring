@@ -1,7 +1,8 @@
-import { Box, Divider, Drawer, Grid, Paper } from '@mui/material';
+import { Box, Divider, Drawer, Grid, IconButton, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
+import CloseIcon from '@mui/icons-material/Close';
+import { useCallback } from 'react';
 
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
@@ -12,16 +13,18 @@ const Item = styled(Paper)(({ theme }) => ({
   
   }));
 
+
+
 const TrgInfo = (props) => {
 
     const [open, setOpen] = useState(false);
     const [drawData, setDrawData] = useState();
-
+    
     useEffect(()=>{
 
         if (props){
             if (props.data){
-                console.log("TRGINFO", props.data) 
+               // console.log("TRGINFO", props.data) 
                 const arrTxt=[]
                 arrTxt.push(props.data.properties.mode.toUpperCase())
                 arrTxt.push(props.data.properties.icao.toUpperCase())
@@ -54,23 +57,46 @@ const TrgInfo = (props) => {
                     </Grid>                   
                 </Grid>)
                 setOpen(true)
+                props.clearKey(false)
             }
             else
                 setOpen(false)
         }                                
     },[props])
       
-
+    const handleClose = ()=>{        
+        console.log("Close Box@@")
+        props.clearKey(true)
+        setDrawData()
+        setOpen(false)
+    }
+    
     return  (  
         <React.Fragment key={"swBot"}>       
         <Drawer                               
-            sx={{width: 'auto'}}
+            sx={{width: 'auto', display:'flex'}}
             variant="persistent"
             anchor="bottom"
             open={open}            
-        >                    
-            <Divider />
-            <Box> 
+        >                               
+            <Box 
+               component="span" 
+               sx={{ 
+                flexGrow: 1, 
+                p: 1, 
+                border: '1px dashed grey' 
+                }} >  
+                Информация о наблюдаемом объекте
+                           
+                <IconButton sx={{
+                    position:'absolute',
+                    right:0,
+                    top:0,                  
+                 }}
+                 onClick={handleClose}
+                 >
+                    <CloseIcon />                   
+                </IconButton>
                 {drawData}
             </Box>
         </Drawer>  

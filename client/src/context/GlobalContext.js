@@ -10,6 +10,7 @@ export const GlobalContext = createContext( {
     logout: noop,
     isAuthenticated: false,
     showMLAT:true, 
-    showADSB:true
+    showADSB:true,
+    showLines:true
 
 })

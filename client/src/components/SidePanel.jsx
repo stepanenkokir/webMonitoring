@@ -25,14 +25,11 @@ export const SidePanel = (props) =>{
 
     const handleDrawerClose = () => {
         setOpen(false);
-    };
-
-    console.log("DrawMapPage")
+    };  
 
     useEffect(()=>{                
         if (props)
-        if (props.props){
-            console.log("props SidePanel",props)
+        if (props.props){           
             if (props.props.stat){            
                 setDrawName("Статусы")
                 setDrawData(<StatusPage/>)

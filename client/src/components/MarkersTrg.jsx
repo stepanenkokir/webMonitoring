@@ -1,4 +1,4 @@
-import React, {useState, useContext,  useCallback, useRef, useEffect} from 'react'
+import React, {useState, useContext,  useRef, useEffect} from 'react'
 import L from 'leaflet'
 import { useHttp } from "../hooks/http.hooks";
 import { GlobalContext } from '../context/GlobalContext';
@@ -39,32 +39,35 @@ const MarkersTrg = (props) =>{
             const listStE = markers[indx].props.prop.properties['error-stations'].split(',')           
             const arrLines = []
            // console.log(listStG,listStE)
-            if (listStG.length>0){                
-                const linesCrd = listStG.map(i=>{
-                    if (i!=='')
-                        return [posCrd[i] , c_crd]
-                })                        
-               arrLines.push(<Polyline key={'gdLines'} pathOptions={{ weight:1, color: 'blue' }} positions={linesCrd} />)
+            if ( ctxt.showLines){
+                if (listStG.length>0){                
+                    const linesCrd = listStG.map(i=>{
+                        if (i!=='')
+                            return [posCrd[i] , c_crd]
+                    })                        
+                arrLines.push(<Polyline key={'gdLines'} pathOptions={{ weight:1, color: 'blue' }} positions={linesCrd} />)
+                }
+                if (listStE.length>0){                
+                    const linesCrd = listStE.map(i=>{                    
+                        if (i!==''){                       
+                            return [posCrd[i] , c_crd]
+                        }
+                            
+                    })                
+                    if (linesCrd[0])           
+                        arrLines.push(<Polyline key={'bdLines'} pathOptions={{ weight:1, color: 'red' }} positions={linesCrd} />)
+                }
             }
-            if (listStE.length>0){                
-                const linesCrd = listStE.map(i=>{                    
-                    if (i!==''){                       
-                        return [posCrd[i] , c_crd]
-                    }
-                        
-                })                
-                if (linesCrd[0])           
-                    arrLines.push(<Polyline key={'bdLines'} pathOptions={{ weight:1, color: 'red' }} positions={linesCrd} />)
-            }
+            
             if (arrLines)
-                setLines(arrLines)
+                setLines(arrLines)            
+                
         }  
         else{
             clearKey()
             setCurrInfo()
-        }
-            
-    }    
+        }            
+    }
 
     const handleClick = (key,e)=>{ 
        // console.log("Press ",key)
@@ -151,8 +154,7 @@ const MarkersTrg = (props) =>{
             >
                 <Tooltip direction="top">
                     {data.properties.icao.toUpperCase()+" "+
-                    data.properties.name+" "+
-                    data.properties.type }
+                    data.properties.name}
                 </Tooltip>
             </Marker>
             )            
@@ -162,7 +164,7 @@ const MarkersTrg = (props) =>{
 
     const clearKey = ()=>{
         setCurrKey(-1)
-        setLines([])
+       // setLines([])
     }
 
     const readContextFromServer = async ()=>{
@@ -189,7 +191,7 @@ const MarkersTrg = (props) =>{
         findMarkerIndex(currKey)                       
         timeoutContext.current = setInterval(()=>{                  
                 readContextFromServer()                                  
-        },2000);
+        },5000);
         return ()=> clearInterval(timeoutContext.current)    
     },[markers])   
     

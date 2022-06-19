@@ -19,6 +19,16 @@ const Map = (props) => {
             props.info()
     },[currInfo])
 
+    const handleClear = () =>{
+        clearKey()
+        props.info()
+    }
+
+    useEffect(()=>{
+        if (props.clearKey)
+            clearKey()
+    },[props])
+
     return  (       
                  
         <MapContainer 
@@ -28,7 +38,7 @@ const Map = (props) => {
             doubleClickZoom={false}         
             style={{ height: '100%', width: '100%' }}           
         >                                       
-            <Layers click={clearKey} />            
+            <Layers click={handleClear} />            
             <Markers />            
            
         </MapContainer>

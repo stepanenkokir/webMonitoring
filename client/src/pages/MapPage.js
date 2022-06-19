@@ -7,16 +7,27 @@ import TrgInfo from '../components/TrgInfo'
 export const MapPage = (props) =>{
     const [trgInfo, setTrgInfo] = useState();
     const [sideInfo, setSideInfo] = useState();
-    console.log("DrawMapPage")   
+    const [clearKey, setClearKey] = useState(false);
+   // console.log("DrawMapPage")   
     useEffect(()=>{
         setSideInfo(props)
     },[props])
+
+    const handleClear = (e)=>{
+        console.log("HandleCleaR!!",e)
+        setClearKey(e)
+        if (e){           
+            setTrgInfo()
+        }
+        
+    }
+
     return (
         <>                    
             <SidePanel props={sideInfo} />              
-            <TrgInfo data={trgInfo}/>
+            <TrgInfo data={trgInfo} clearKey={handleClear}/>
             <Box sx={{ bgcolor: '#cfe8fc', height: '92vh' }}>
-                <Map info={setTrgInfo}/>                
+                <Map info={setTrgInfo} clearKey={clearKey} />                
             </Box>            
         </>
     )

@@ -24,7 +24,12 @@ const Layers = (props) => {
 			}
 			if (e.name===('АЗН-В')){
 				ctxt.showADSB = true
-				console.log("Enable ADSB",ctxt.true)
+				console.log("Enable ADSB",ctxt.showADSB)
+			}
+
+			if (e.name.includes('Линии')){
+				ctxt.showLines = true
+				console.log("Enable showLines",ctxt.showLines)
 			}
 
 	   	},
@@ -41,6 +46,11 @@ const Layers = (props) => {
 			if (e.name===('АЗН-В')){
 				ctxt.showADSB = false
 				console.log("Disable ADSB",ctxt.showADSB)
+			}
+
+			if (e.name.includes('Линии')){
+				ctxt.showLines = false
+				console.log("Disable showLines",ctxt.showLines)
 			}
 		}
 	})
@@ -86,6 +96,10 @@ const Layers = (props) => {
 					</FeatureGroup>
 				</LayersControl.Overlay>
 				<LayersControl.Overlay checked  name={'МПСН'} >
+					<FeatureGroup>
+					</FeatureGroup>
+				</LayersControl.Overlay>
+				<LayersControl.Overlay checked  name={'Линии '} >
 					<FeatureGroup>
 					</FeatureGroup>
 				</LayersControl.Overlay>

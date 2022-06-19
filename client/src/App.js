@@ -11,6 +11,8 @@ export default function App() {
 	const isAuthenticated = !!token;
 	const showMLAT = true
 	const showADSB  = true
+	const showLines = true
+
 	const [myroute, setMyRoute] = useState()
 
 	useEffect(()=>{
@@ -19,7 +21,7 @@ export default function App() {
 	
 	return (
 		<GlobalContext.Provider value={{
-			token,login, logout, userId, userName, isAuthenticated, showMLAT, showADSB
+			token,login, logout, userId, userName, isAuthenticated, showMLAT, showADSB, showLines
 		}}>
 			<BrowserRouter>
 				{isAuthenticated&&<Navbar /> }
