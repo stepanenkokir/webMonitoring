@@ -16,7 +16,11 @@ const MarkersTrg = (props) =>{
     const ctxt = useContext(GlobalContext)
     const timeoutContext = useRef(null);
     const { request} = useHttp();
-    const  {flyIconMlat, flyIconAdsb, flyIconNone} = flyIcons() 
+    const  {mediumAdsb, mediumMlat, 
+        smallMlat, smallAdsb, 
+        largeMlat,  largeAdsb,
+        triangleMlat, triangleAdsb, 
+        flyIconNone} = flyIcons() 
 
     const nDt = new Date().getTime()
    // console.log("render Markers!!",nDt);
@@ -25,7 +29,7 @@ const MarkersTrg = (props) =>{
     const findMarkerIndex =  (key)=>{        
         const indx = markers.map(mrk=>mrk.key).indexOf(key)        
         if (markers[indx]){
-           //console.log("MARKERS: find ",key,markers[indx])
+        //   console.log("MARKERS: find ",key,markers[indx])
                 
             setCurrInfo(markers[indx].props.prop)
             const c_crd=[ markers[indx].props.prop.geometry.coordinates[1],
@@ -34,7 +38,7 @@ const MarkersTrg = (props) =>{
             const listStG = markers[indx].props.prop.properties['visible-stations'].split(',')
             const listStE = markers[indx].props.prop.properties['error-stations'].split(',')           
             const arrLines = []
-            console.log(listStG,listStE)
+           // console.log(listStG,listStE)
             if (listStG.length>0){                
                 const linesCrd = listStG.map(i=>{
                     if (i!=='')
@@ -57,12 +61,13 @@ const MarkersTrg = (props) =>{
         }  
         else{
             clearKey()
+            setCurrInfo()
         }
             
     }    
 
     const handleClick = (key,e)=>{ 
-        console.log("Press ",key)
+       // console.log("Press ",key)
         findMarkerIndex(key) 
         setCurrKey(key)       
     }
@@ -78,11 +83,46 @@ const MarkersTrg = (props) =>{
 
     const selectIcon = (mode)=>{
         let icon = flyIconNone
-        if (mode ==='adsb' && ctxt.showADSB)
-            icon = flyIconAdsb
-        if (mode === 'mlat' && ctxt.showMLAT)
-            icon = flyIconMlat
+        if (mode.mode ==='adsb' && ctxt.showADSB){
+            switch (mode.type) {
+                case "medium":
+                    icon = mediumAdsb
+                    break;
+                case "heavy":
+                    icon = largeAdsb
+                    break;
+                case "light":
+                    icon = smallAdsb
+                    break;
+                default:
+                    icon = smallAdsb
+                    break;
+            }
+        
+            if (mode.heading==='nan' && mode['mode-a']==='0000')   
+                icon = triangleAdsb
+        }        
+        if (mode.mode === 'mlat' && ctxt.showMLAT){
 
+            switch (mode.type) {
+                case "medium":
+                    icon = mediumMlat
+                    break;
+                case "heavy":
+                    icon = largeMlat
+                    break;
+                case "light":
+                    icon = smallMlat
+                    break;
+                default:
+                    icon = triangleMlat
+                    break;
+            }   
+            // if (mode.heading==='nan' && mode[mode-a]==='0000')   
+            //     icon = triangleMlat        
+        }
+            
+       //console.log(mode.icao, mode.mode, mode.type, mode.heading ,mode.heading==='nan')
         return icon
     }    
 
@@ -96,7 +136,7 @@ const MarkersTrg = (props) =>{
             const key = data.properties.mode+data.properties.icao+data.properties.name
             const position = [data.geometry.coordinates[1],data.geometry.coordinates[0]]            
 
-            const cIicon = selectIcon(data.properties.mode)
+            const cIicon = selectIcon(data.properties)
             arrTrg.push(<Marker                       
                 rotationAngle={data.properties.heading}
                 rotationOrigin="center" 
@@ -111,7 +151,8 @@ const MarkersTrg = (props) =>{
             >
                 <Tooltip direction="top">
                     {data.properties.icao.toUpperCase()+" "+
-                    data.properties.name}
+                    data.properties.name+" "+
+                    data.properties.type }
                 </Tooltip>
             </Marker>
             )            

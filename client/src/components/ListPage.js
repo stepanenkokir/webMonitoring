@@ -1,9 +1,8 @@
 import {Container, Table, TableBody, TableCell,TableHead, TableContainer,  TableRow, Paper, Typography} from "@mui/material";
-import React, { useEffect, useState } from "react"
+import React, {  useState } from "react"
 import { useHttp } from "../hooks/http.hooks";
 import { GlobalContext } from "../context/GlobalContext"
-import ModalLogout from "../components/ModalLogout";
-import {Link} from 'react-router-dom'
+import ModalLogout from "./ModalLogout";
 
 export const ListPage = () =>{     
    //console.log("render List!!");

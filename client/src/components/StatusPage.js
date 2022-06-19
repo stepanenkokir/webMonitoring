@@ -5,7 +5,7 @@ import 'whatwg-fetch';
 import {Table, TableBody, TableCell,TableHead,  TableContainer,  TableRow, Paper, Container, CircularProgress, Backdrop, Stack} from "@mui/material";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import ModalLogout from "../components/ModalLogout";
+import ModalLogout from "./ModalLogout";
 
 export const StatusPage = () =>{         
     const {loading, request} = useHttp();    
