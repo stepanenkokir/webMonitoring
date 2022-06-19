@@ -167,6 +167,11 @@ const MarkersTrg = (props) =>{
        // setLines([])
     }
 
+    const clearKeyAndLines = ()=>{
+        setCurrKey(-1)
+        setLines([])
+    }
+
     const readContextFromServer = async ()=>{
         try{ 
             const response = await request('/mlat/current','GET',null,{
@@ -199,7 +204,7 @@ const MarkersTrg = (props) =>{
         readContextFromServer()    
     },[])   
 
-    return {Markers, currInfo, clearKey}
+    return {Markers, currInfo, clearKey, clearKeyAndLines}
 }
 
 export default MarkersTrg

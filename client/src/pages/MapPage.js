@@ -14,7 +14,7 @@ export const MapPage = (props) =>{
     },[props])
 
     const handleClear = (e)=>{
-        console.log("HandleCleaR!!",e)
+       // console.log("HandleCleaR!!",e)
         setClearKey(e)
         if (e){           
             setTrgInfo()

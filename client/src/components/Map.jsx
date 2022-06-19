@@ -8,7 +8,7 @@ import MarkersTrg from './MarkersTrg'
 const Map = (props) => {
     const mapCenter = localStorage.getItem('centerM')?JSON.parse(localStorage.getItem('centerM')):[59.96906375537783, 30.32941039614578]           
     const zoom= localStorage.getItem('zoomM')?localStorage.getItem('zoomM'):10
-    const { Markers, currInfo, clearKey } = MarkersTrg()
+    const { Markers, currInfo, clearKey, clearKeyAndLines } = MarkersTrg()
    // console.log("Render Map ", currInfo)
 
     useEffect(()=>{
@@ -20,7 +20,7 @@ const Map = (props) => {
     },[currInfo])
 
     const handleClear = () =>{
-        clearKey()
+        clearKeyAndLines()
         props.info()
     }
 

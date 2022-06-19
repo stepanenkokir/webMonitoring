@@ -20,37 +20,37 @@ const Layers = (props) => {
 		overlayadd: (e)=>{
 			if (e.name===('МПСН')){
 				ctxt.showMLAT = true
-				console.log("Enable MPSN",ctxt.showMLAT)
+				//console.log("Enable MPSN",ctxt.showMLAT)
 			}
 			if (e.name===('АЗН-В')){
 				ctxt.showADSB = true
-				console.log("Enable ADSB",ctxt.showADSB)
+				//console.log("Enable ADSB",ctxt.showADSB)
 			}
 
 			if (e.name.includes('Линии')){
 				ctxt.showLines = true
-				console.log("Enable showLines",ctxt.showLines)
+				//console.log("Enable showLines",ctxt.showLines)
 			}
 
 	   	},
 		click: () => {		  
-			console.log("PressMap!!!")
+			//console.log("PressMap!!!")
 			props.click(-1)
 	  	},
 	   	overlayremove: (e)=>{	
 			if (e.name===('МПСН')){
 				ctxt.showMLAT = false
-				console.log("Disable MPSN",ctxt.showMLAT)
+				//console.log("Disable MPSN",ctxt.showMLAT)
 			}
 
 			if (e.name===('АЗН-В')){
 				ctxt.showADSB = false
-				console.log("Disable ADSB",ctxt.showADSB)
+			//	console.log("Disable ADSB",ctxt.showADSB)
 			}
 
 			if (e.name.includes('Линии')){
 				ctxt.showLines = false
-				console.log("Disable showLines",ctxt.showLines)
+			//	console.log("Disable showLines",ctxt.showLines)
 			}
 		}
 	})

@@ -65,7 +65,7 @@ const TrgInfo = (props) => {
     },[props])
       
     const handleClose = ()=>{        
-        console.log("Close Box@@")
+       // console.log("Close Box@@")
         props.clearKey(true)
         setDrawData()
         setOpen(false)
