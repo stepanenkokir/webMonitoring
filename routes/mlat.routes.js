@@ -77,7 +77,14 @@ const loadCurrent = async ()=>{
     try {           
         //console.log("LOAD CURRENT",loadCurrentUrl)        
         curl.request(loadCurrentUrl, (err, stdout)=>{                     
-            current.data = JSON.parse(stdout)            
+            // const c_data = JSON.parse(stdout)  
+            // const n_data = [];
+
+            // console.log("current",c_data)
+            
+            // current.data = n_data
+            
+            current.data =  JSON.parse(stdout)  
        })
     }
     catch (error) {
@@ -93,7 +100,7 @@ const loadCurrent = async ()=>{
         })
      }
      catch (error) {
-         console.log('Ошибка загрузки трекоы. Попробуйте позже.',error);        
+         console.log('Ошибка загрузки треков. Попробуйте позже.',error);        
      } 
 }
 

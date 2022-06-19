@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666659 8.4666659"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="speed_exceeded.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.919596"
+     inkscape:cx="40.205761"
+     inkscape:cy="25.317131"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     width="32mm"
+     inkscape:showpageshadow="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="2560"
+     inkscape:window-y="548"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:document-rotation="0">
+    <sodipodi:guide
+       position="6.3476507,6.7903158"
+       orientation="1,0"
+       id="guide1368"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="2.1214517,7.7174069"
+       orientation="1,0"
+       id="guide1370"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0.091873892,6.3560029"
+       orientation="0,1"
+       id="guide1372"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0.08352172,2.1214517"
+       orientation="0,1"
+       id="guide1374"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="4.2345141,3.1419268"
+       orientation="1,0"
+       id="guide1376"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="2.9942799,4.2345141"
+       orientation="0,1"
+       id="guide1378"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="7.4000644,3.519903"
+       orientation="1,0"
+       id="guide1380"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="1.0394344,4.5239021"
+       orientation="1,0"
+       id="guide1382"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="-0.51783466,1.069078"
+       orientation="0,1"
+       id="guide1384"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="-0.10022606,7.4083765"
+       orientation="0,1"
+       id="guide1386"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,6.9531832"
+       orientation="1,0"
+       id="guide2050"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="8.4690283,4.9018783"
+       orientation="1,0"
+       id="guide2052"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="8.3095696,8.4690283"
+       orientation="0,1"
+       id="guide2054"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="7.9315934,-0.0059058774"
+       orientation="0,1"
+       id="guide2056"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-288.53334)">
+    <circle
+       style="fill:#ffffff;stroke:#db0000;stroke-width:0.79374993;stroke-linecap:square;stroke-linejoin:round;paint-order:markers fill stroke;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path844"
+       cx="4.2345142"
+       cy="292.7655"
+       r="3.165436" />
+  </g>
+</svg>

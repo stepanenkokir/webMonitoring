@@ -3,14 +3,14 @@ import {BrowserRouter} from "react-router-dom"
 import "./App.css";
 import { useRoutes } from "./routes";
 import { useAuth } from "./hooks/auth.hook";
-import { AuthContext } from "./context/AuthContext";
+import { GlobalContext } from "./context/GlobalContext";
 import Navbar from "./components/AppBar";
 
 export default function App() {  
 	const {token,login, logout, userId, userName} = useAuth(); 	
 	const isAuthenticated = !!token;
-	const showTargets = false
-	const showStatus  = false
+	const showMLAT = true
+	const showADSB  = true
 	const [myroute, setMyRoute] = useState()
 
 	useEffect(()=>{
@@ -18,13 +18,13 @@ export default function App() {
 	},[isAuthenticated])
 	
 	return (
-		<AuthContext.Provider value={{
-			token,login, logout, userId, userName, isAuthenticated, showTargets, showStatus
+		<GlobalContext.Provider value={{
+			token,login, logout, userId, userName, isAuthenticated, showMLAT, showADSB
 		}}>
 			<BrowserRouter>
 				{isAuthenticated&&<Navbar /> }
 					{myroute}			
 			</BrowserRouter>
-		</AuthContext.Provider>
+		</GlobalContext.Provider>
 	)
 }

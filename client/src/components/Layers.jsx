@@ -1,14 +1,14 @@
-import React from 'react'
-import { TileLayer, LayersControl, useMapEvents, AttributionControl} from 'react-leaflet'
+import React, { useEffect } from 'react'
+import { TileLayer, LayersControl, useMapEvents, FeatureGroup} from 'react-leaflet'
 import {Positions, ZoneULP, ZoneULR } from './Positions';
-import Targets from './Targets';
+import { GlobalContext } from '../context/GlobalContext';
 
 const mTitAttrOSM='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> | <a href="http://lemz.ru/автоматизированные-системы/" target="_blank">ПАО "НПО "Алмаз" НПЦ-СПб</a>';
 const mTitAttrSat='&copy; <a href="https://www.google.com/intl/ru_ru/help/terms_maps/">GoogleMaps</a> | <a href="http://lemz.ru/автоматизированные-системы/" target="_blank">ПАО "НПО "Алмаз" НПЦ-СПб</a>';
 
 const Layers = (props) => { 
-
-	const {TargetsMLAT, TargetsADSB} = Targets()
+	//console.log("Render Layers", props)	
+	const ctxt = React.useContext(GlobalContext)
 
 	const mapE = useMapEvents({		
 		zoomend: () => {		  
@@ -18,10 +18,30 @@ const Layers = (props) => {
 			localStorage.setItem('centerM', JSON.stringify([mapE.getCenter().lat,mapE.getCenter().lng]));
 		},
 		overlayadd: (e)=>{
+			if (e.name===('МПСН')){
+				ctxt.showMLAT = true
+				console.log("Enable MPSN",ctxt.showMLAT)
+			}
+			if (e.name===('АЗН-В')){
+				ctxt.showADSB = true
+				console.log("Enable ADSB",ctxt.true)
+			}
 
 	   	},
+		click: () => {		  
+			console.log("PressMap!!!")
+			props.click(-1)
+	  	},
 	   	overlayremove: (e)=>{	
-		
+			if (e.name===('МПСН')){
+				ctxt.showMLAT = false
+				console.log("Disable MPSN",ctxt.showMLAT)
+			}
+
+			if (e.name===('АЗН-В')){
+				ctxt.showADSB = false
+				console.log("Disable ADSB",ctxt.showADSB)
+			}
 		}
 	})
 
@@ -62,12 +82,14 @@ const Layers = (props) => {
 			</LayersControl>
 			<LayersControl  position="topright">
 				<LayersControl.Overlay checked  name={'АЗН-В'} >
-					<TargetsADSB/>
+					<FeatureGroup>
+					</FeatureGroup>
 				</LayersControl.Overlay>
 				<LayersControl.Overlay checked  name={'МПСН'} >
-					<TargetsMLAT/>
+					<FeatureGroup>
+					</FeatureGroup>
 				</LayersControl.Overlay>
-			</LayersControl>
+			</LayersControl>	   
     	</>
   	)
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { AuthContext } from "../context/AuthContext"
+import { GlobalContext } from "../context/GlobalContext"
 import { useNavigate } from 'react-router';
 
 const style = {
@@ -38,14 +38,14 @@ export default function ModalLogout() {
     
     
     
-    const auth = React.useContext(AuthContext);
+    const ctxt = React.useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleClose = (event) => {        
             console.log("Выход!!!");
             setOpen(false);
             if (event) event.preventDefault();
-            auth.logout();
+            ctxt.logout();
             navigate('/');
         }  
     return (

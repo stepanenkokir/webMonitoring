@@ -1,0 +1,162 @@
+import React, {useState, useContext,  useCallback, useRef, useEffect} from 'react'
+import L from 'leaflet'
+import { useHttp } from "../hooks/http.hooks";
+import { GlobalContext } from '../context/GlobalContext';
+import {FeatureGroup,  Marker, Tooltip, Polyline} from 'react-leaflet'
+import "leaflet-rotatedmarker";
+import flyIcons from './flyIcons';
+
+const posCrd = JSON.parse(localStorage.getItem("positions"))
+
+const MarkersTrg = (props) =>{        
+    const [markers, setMarkers] = useState([])
+    const [lines, setLines] = useState([])
+    const [currInfo, setCurrInfo] = useState()
+    const [currKey, setCurrKey] = useState(-1)
+    const ctxt = useContext(GlobalContext)
+    const timeoutContext = useRef(null);
+    const { request} = useHttp();
+    const  {flyIconMlat, flyIconAdsb, flyIconNone} = flyIcons() 
+
+    const nDt = new Date().getTime()
+   // console.log("render Markers!!",nDt);
+
+
+    const findMarkerIndex =  (key)=>{        
+        const indx = markers.map(mrk=>mrk.key).indexOf(key)        
+        if (markers[indx]){
+           //console.log("MARKERS: find ",key,markers[indx])
+                
+            setCurrInfo(markers[indx].props.prop)
+            const c_crd=[ markers[indx].props.prop.geometry.coordinates[1],
+                          markers[indx].props.prop.geometry.coordinates[0]]
+            //lines
+            const listStG = markers[indx].props.prop.properties['visible-stations'].split(',')
+            const listStE = markers[indx].props.prop.properties['error-stations'].split(',')           
+            const arrLines = []
+            console.log(listStG,listStE)
+            if (listStG.length>0){                
+                const linesCrd = listStG.map(i=>{
+                    if (i!=='')
+                        return [posCrd[i] , c_crd]
+                })                        
+               arrLines.push(<Polyline key={'gdLines'} pathOptions={{ weight:1, color: 'blue' }} positions={linesCrd} />)
+            }
+            if (listStE.length>0){                
+                const linesCrd = listStE.map(i=>{                    
+                    if (i!==''){                       
+                        return [posCrd[i] , c_crd]
+                    }
+                        
+                })                
+                if (linesCrd[0])           
+                    arrLines.push(<Polyline key={'bdLines'} pathOptions={{ weight:1, color: 'red' }} positions={linesCrd} />)
+            }
+            if (arrLines)
+                setLines(arrLines)
+        }  
+        else{
+            clearKey()
+        }
+            
+    }    
+
+    const handleClick = (key,e)=>{ 
+        console.log("Press ",key)
+        findMarkerIndex(key) 
+        setCurrKey(key)       
+    }
+
+    const Markers = ()=>{
+        return (
+            <FeatureGroup>                
+                {markers}
+                {lines}
+            </FeatureGroup>            
+        )
+    }
+
+    const selectIcon = (mode)=>{
+        let icon = flyIconNone
+        if (mode ==='adsb' && ctxt.showADSB)
+            icon = flyIconAdsb
+        if (mode === 'mlat' && ctxt.showMLAT)
+            icon = flyIconMlat
+
+        return icon
+    }    
+
+    const parseData = (dataP) =>{       
+       // console.log("parseData",dataP)
+        const lTime =  new Date().getTime()/1000               
+        const arrTrg=[]
+
+        for (let i=0;i<dataP.length;i++){
+            const data = dataP[i]           
+            const key = data.properties.mode+data.properties.icao+data.properties.name
+            const position = [data.geometry.coordinates[1],data.geometry.coordinates[0]]            
+
+            const cIicon = selectIcon(data.properties.mode)
+            arrTrg.push(<Marker                       
+                rotationAngle={data.properties.heading}
+                rotationOrigin="center" 
+                key = {key}                               
+                eventHandlers={{
+                    mousedown: (e)=>handleClick(key,e)
+                }}
+               
+                prop = {data}
+                icon={cIicon}
+                position={position}                                         
+            >
+                <Tooltip direction="top">
+                    {data.properties.icao.toUpperCase()+" "+
+                    data.properties.name}
+                </Tooltip>
+            </Marker>
+            )            
+        }       
+        setMarkers(arrTrg)
+    }
+
+    const clearKey = ()=>{
+        setCurrKey(-1)
+        setLines([])
+    }
+
+    const readContextFromServer = async ()=>{
+        try{ 
+            const response = await request('/mlat/current','GET',null,{
+                Authorization: `Bearer ${ctxt.token}`
+            });                                           
+            if (response) 
+                if (response.data)
+                    if (response.data.features)                    
+                        parseData(response.data.features);                       
+        }catch(e){
+            console.log("Error CURRENT ==> ",e);
+            if (String(e).includes('401') || String(e).includes('SyntaxError')) 
+            {
+                console.log("Send logout!!");
+                ctxt.logout();
+            }                
+        }
+    }
+    
+    useEffect(() =>{    
+       // console.log("Update Markers CurrKey")  
+        findMarkerIndex(currKey)                       
+        timeoutContext.current = setInterval(()=>{                  
+                readContextFromServer()                                  
+        },2000);
+        return ()=> clearInterval(timeoutContext.current)    
+    },[markers])   
+    
+    useEffect(() =>{           
+        readContextFromServer()    
+    },[])   
+
+    return {Markers, currInfo, clearKey}
+}
+
+export default MarkersTrg

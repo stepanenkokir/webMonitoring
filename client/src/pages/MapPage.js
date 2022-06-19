@@ -49,8 +49,9 @@ export const MapPage = (props) =>{
         setOpen(false);
     };
 
-    useEffect(()=>{
-        console.log("Map props = ",props)
+    console.log("DrawMapPage")
+
+    useEffect(()=>{       
         if (props.stat){            
             setDrawName("Статусы")
             setDrawData(<StatusPage/>)
@@ -68,12 +69,12 @@ export const MapPage = (props) =>{
     },[props])
 
     return (
-        <>
+        <>        
             {logout && <ModalLogout/>}
             <CssBaseline />
 
             <Drawer
-                sx={{
+                sx={{                    
                     width: drawerWidth,
                     flexShrink: 0,
                     '& .MuiDrawer-paper': { width: drawerWidth,boxSizing: 'border-box',},
@@ -97,7 +98,7 @@ export const MapPage = (props) =>{
                 {drawData}
             </Drawer>                            
             <Box sx={{ bgcolor: '#cfe8fc', height: '92vh' }}>
-                <Map logout={setLogout}/>                
+                <Map/>                
             </Box>            
         </>
     )

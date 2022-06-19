@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import { Alert, Collapse, CssBaseline, Grid, LinearProgress } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHttp } from "../hooks/http.hooks";
-import { AuthContext } from "../context/AuthContext";
+import { GlobalContext } from "../context/GlobalContext";
 import 'whatwg-fetch'; 
 
 function Copyright(props) {
@@ -37,7 +37,7 @@ function checkRussian(str){
 }
 
 export const  SignIn = () =>  {
-    const auth = useContext(AuthContext);
+    const auth = useContext(GlobalContext);
     const [form,setForm] = useState({login:'', password: ''});
     const {loading, request} = useHttp();
     const [errorString,setErrorString] = useState("");

@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router';
-import { AuthContext } from '../context/AuthContext';
+import { GlobalContext } from '../context/GlobalContext';
 import {Link} from 'react-router-dom'
 
 const pages = [
@@ -38,13 +38,13 @@ const ResponsiveAppBar = () => {
         setAnchorElUser(null);
     };
 
-    const auth = React.useContext(AuthContext);
+    const ctxt = React.useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleLogout = (event) => {        
             console.log("Выход!!!");
             event.preventDefault();
-            auth.logout();
+            ctxt.logout();
             navigate('/');
         }  
 

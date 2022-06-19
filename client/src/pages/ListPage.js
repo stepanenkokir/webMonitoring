@@ -1,7 +1,7 @@
 import {Container, Table, TableBody, TableCell,TableHead, TableContainer,  TableRow, Paper, Typography} from "@mui/material";
 import React, { useEffect, useState } from "react"
 import { useHttp } from "../hooks/http.hooks";
-import { AuthContext } from "../context/AuthContext"
+import { GlobalContext } from "../context/GlobalContext"
 import ModalLogout from "../components/ModalLogout";
 import {Link} from 'react-router-dom'
 
@@ -12,7 +12,7 @@ export const ListPage = () =>{
    const [logout, setLogout] = useState(false);
   
    const {loading, request} = useHttp();  
-   const auth = React.useContext(AuthContext)
+   const auth = React.useContext(GlobalContext)
     
    const timeoutList = React.useRef(null);   
 
@@ -24,7 +24,7 @@ export const ListPage = () =>{
            setList(response.data);                       
        }catch(e){
             console.log("Error load List",e);
-            if (String(e).startsWith('Error: 401')) 
+            if (String(e).includes('401')) 
                 setLogout(true)
            
        }

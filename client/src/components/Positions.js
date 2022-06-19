@@ -49,7 +49,7 @@ const colorIicon = (color)=>{
 
     return L.divIcon({
   className: "my-custom-pin",
-  iconAnchor: [0, 0],
+  iconAnchor: [0, 10],
   labelAnchor: [0, 0],
   popupAnchor: [0,0],
   html: `<span style="${style}" />`
@@ -64,12 +64,13 @@ export const Positions = () =>{
             const response = await request('/mlat/positions','GET');                     
             const geojson = response.data;          
             let cntrCrd={lat:0,lng:0}  
-            let myPos=[];        
+            let myPos=[];    
+            let arrCrdPos=[]    
             for (let i=0;i<geojson.features.length;i++){                           
                 if (geojson.features[i].properties.id){
                     cntrCrd.lat+=geojson.features[i].geometry.coordinates[1]
                     cntrCrd.lng+=geojson.features[i].geometry.coordinates[0]
-
+                    arrCrdPos.push([geojson.features[i].geometry.coordinates[1], geojson.features[i].geometry.coordinates[0]])
                     myPos.push(                
                         <Marker 
                             key={geojson.features[i].properties.id} 
@@ -91,6 +92,7 @@ export const Positions = () =>{
                 cntrCrd.lat/=myPos.length
                 cntrCrd.lng/=myPos.length
                 localStorage.setItem("centerPos",JSON.stringify(cntrCrd))
+                localStorage.setItem("positions",JSON.stringify(arrCrdPos))
             }
             
 

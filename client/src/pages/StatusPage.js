@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useHttp } from "../hooks/http.hooks";
-import { AuthContext } from "../context/AuthContext"
+import { GlobalContext } from "../context/GlobalContext"
 import 'whatwg-fetch'; 
 import {Table, TableBody, TableCell,TableHead,  TableContainer,  TableRow, Paper, Container, CircularProgress, Backdrop, Stack} from "@mui/material";
 import Snackbar from '@mui/material/Snackbar';
@@ -9,7 +9,7 @@ import ModalLogout from "../components/ModalLogout";
 
 export const StatusPage = () =>{         
     const {loading, request} = useHttp();    
-    const auth = React.useContext(AuthContext)
+    const auth = React.useContext(GlobalContext)
     const [names, setNames] = React.useState([]);
     const [logout, setLogout] = React.useState(false);    
     const [stateToast, setStateToast] = React.useState({
