@@ -21,19 +21,17 @@ const TrgInfo = (props) => {
     const [drawData, setDrawData] = useState();
     
     useEffect(()=>{
-
+       // console.log("TRGINFO", props.data) 
         if (props){
             if (props.data){
-               // console.log("TRGINFO", props.data) 
+                
                 const arrTxt=[]
                 arrTxt.push(props.data.properties.mode.toUpperCase())
                 arrTxt.push(props.data.properties.icao.toUpperCase())
                 arrTxt.push(props.data.properties.name.toUpperCase())
                 arrTxt.push("ModeA:"+props.data.properties['mode-a'])
                 arrTxt.push(props.data.geometry.coordinates.join(','))
-                
-                
-                
+                                                
                 setDrawData(<Grid  container spacing={3}>
                     <Grid item xs={12}>
                     <ThemeProvider theme={lightTheme}>
@@ -56,17 +54,22 @@ const TrgInfo = (props) => {
                     </ThemeProvider>
                     </Grid>                   
                 </Grid>)
-                setOpen(true)
-                props.clearKey(false)
+                if(!open)
+                    setOpen(true)              
             }
-            else
-                setOpen(false)
+            else{
+                if (open){
+                    setOpen(false)                  
+                }
+                    
+            }
+                
         }                                
     },[props])
       
     const handleClose = ()=>{        
        // console.log("Close Box@@")
-        props.clearKey(true)
+        props.clearKey()
         setDrawData()
         setOpen(false)
     }

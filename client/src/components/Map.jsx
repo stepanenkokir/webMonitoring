@@ -24,10 +24,9 @@ const Map = (props) => {
         props.info()
     }
 
-    useEffect(()=>{
-        if (props.clearKey)
-            clearKey()
-    },[props])
+    useEffect(()=>{       
+        handleClear()         
+    },[props.clrKey])
 
     return  (       
                  

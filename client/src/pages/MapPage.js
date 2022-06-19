@@ -13,13 +13,11 @@ export const MapPage = (props) =>{
         setSideInfo(props)
     },[props])
 
-    const handleClear = (e)=>{
-       // console.log("HandleCleaR!!",e)
-        setClearKey(e)
-        if (e){           
-            setTrgInfo()
-        }
-        
+    const handleClear = (e)=>{                                             
+        setClearKey(true)
+        setTimeout(() => {
+            setClearKey(false)
+        }, 500);           
     }
 
     return (
@@ -27,7 +25,7 @@ export const MapPage = (props) =>{
             <SidePanel props={sideInfo} />              
             <TrgInfo data={trgInfo} clearKey={handleClear}/>
             <Box sx={{ bgcolor: '#cfe8fc', height: '92vh' }}>
-                <Map info={setTrgInfo} clearKey={clearKey} />                
+                <Map info={setTrgInfo} clrKey={clearKey} />                
             </Box>            
         </>
     )

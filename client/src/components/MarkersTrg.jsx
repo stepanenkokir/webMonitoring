@@ -40,6 +40,7 @@ const MarkersTrg = (props) =>{
             const arrLines = []
            // console.log(listStG,listStE)
             if ( ctxt.showLines){
+
                 if (listStG.length>0){                
                     const linesCrd = listStG.map(i=>{
                         if (i!=='')
@@ -60,12 +61,17 @@ const MarkersTrg = (props) =>{
             }
             
             if (arrLines)
-                setLines(arrLines)            
+                setLines(arrLines) 
+            else           
+                setLines([]) 
                 
         }  
-        else{
-            clearKey()
-            setCurrInfo()
+        else{            
+            if (currKey!=-1){
+                clearKey()
+                setCurrInfo()
+            }
+            
         }            
     }
 
@@ -163,11 +169,13 @@ const MarkersTrg = (props) =>{
     }
 
     const clearKey = ()=>{
+      //  console.log("ClearKey!!")
         setCurrKey(-1)
-       // setLines([])
+        setLines([])
     }
 
     const clearKeyAndLines = ()=>{
+       // console.log("ClearKeyAndLines!!")
         setCurrKey(-1)
         setLines([])
     }
@@ -198,7 +206,7 @@ const MarkersTrg = (props) =>{
                 readContextFromServer()                                  
         },5000);
         return ()=> clearInterval(timeoutContext.current)    
-    },[markers])   
+    },[markers, currKey])   
     
     useEffect(() =>{           
         readContextFromServer()    
