@@ -11,48 +11,10 @@
    viewBox="0 0 8.466666 8.466666"
    width="32"
    version="1.1"
-   id="svg4"
-   sodipodi:docname="icon_small.svg"
-   inkscape:version="0.92.2 2405546, 2018-03-11">
-  <metadata
-     id="metadata10">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs8" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1025"
-     id="namedview6"
-     showgrid="false"
-     inkscape:zoom="7.375"
-     inkscape:cx="16.271186"
-     inkscape:cy="16"
-     inkscape:window-x="2560"
-     inkscape:window-y="551"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg4" />
+  >
   <path
-     d="m35.475435 289.14411-.736479.1199-.0041-.34974.681467-.15344v-.65525h-.451555v-.90311h.338666v-.70992l-.818444.0687-.818444.0687s-.169333.0491-.254.0736c-.08467.0245-.197424.0618-.254.0736-.05969.0124-.03697-.18232 0-.26111.05713-.12176 1.100666-.53172 1.100666-.53172l1.100667-.53173.0013-1.24708.000437-1.35988c.06614-.28137.118898-.38811.326973-.38459.227146-.007.225916.14069.292145.35713v1.37837 1.27313l1.067406.49946s.995055.41305 1.067407.54769c.04111.0765.06725.27473.01.26033-.135393-.0341-.338667-.0981-.508-.1472l-.818444-.0687-.818444-.0687v.70992h.338666v.90311h-.451556v.6594l.658472.1446.02229.34059-.79366-.1072z"
-     fill="#fbff9c"
-     stroke="#a39309"
-     stroke-width=".240004"
+     d="m35.475435 289.14411-.736479.1199-.0041-.34974.681467-.15344v-.65525h-.451555v-.90311h.338666v-.70992l-.818444.0687-.818444.0687s-.169333.0491-.254.0736c-.08467.0245-.197424.0618-.254.0736-.05969.0124-.03697-.18232 0-.26111.05713-.12176 1.100666-.53172 1.100666-.53172l1.100667-.53173.0013-1.24708.000437-1.35988c.06614-.28137.118898-.38811.326973-.38459.227146-.007.225916.14069.292145.35713v1.37837 1.27313l1.067406.49946s.995055.41305 1.067407.54769c.04111.0765.06725.27473.01.26033-.135393-.0341-.338667-.0981-.508-.1472l-.818444-.0687-.818444-.0687v.70992h.338666v.90311h-.451556v.6594l.658472.1446.02229.34059-.79366-.1072z"    
+     stroke-width=".3"
      transform="matrix(1.1029238 0 0 1.1019025 -35.08309 -310.784023)"
-     id="path2"
-     style="fill:#ffaa00;fill-opacity:1;stroke:#898985;stroke-opacity:1" />
+     style="fill:#ffaa00;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
 </svg>

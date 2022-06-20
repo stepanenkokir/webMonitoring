@@ -1,8 +1,8 @@
 import React from 'react'
 import L from 'leaflet'
 
-const flyIcons = (props) =>{        
- 
+const flyIcons = (props) =>{      
+     
     const mediumMlat = new L.icon({
         iconSize:     [30, 30], 
         iconAnchor:   [15, 15], 
@@ -17,14 +17,14 @@ const flyIcons = (props) =>{
     });
 
     const smallMlat = new L.icon({
-        iconSize:     [24, 24], 
-        iconAnchor:   [12, 12], 
+        iconSize:     [28, 28], 
+        iconAnchor:   [14, 14], 
         tooltipAnchor:  [0, 0],    
         iconUrl: "./leaflet/images/icon_small_m.svg",       
     });
     const smallAdsb = new L.icon({
-        iconSize:     [24, 24], 
-        iconAnchor:   [12, 12], 
+        iconSize:     [28, 28], 
+        iconAnchor:   [14, 14], 
         tooltipAnchor:  [0, 0],    
         iconUrl: "./leaflet/images/icon_small_a.svg",       
     });
@@ -55,6 +55,20 @@ const flyIcons = (props) =>{
         tooltipAnchor:  [0, 0],    
         iconUrl: "./leaflet/images/triangle_m.svg",       
     });
+
+    const rotorAdsb = new L.icon({
+        iconSize:     [30, 30], 
+        iconAnchor:   [15, 15], 
+        tooltipAnchor:  [0, 0],    
+        iconUrl: "./leaflet/images/icon_rotor_a.svg",       
+    });
+
+    const rotorMlat = new L.icon({
+        iconSize:     [30, 30], 
+        iconAnchor:   [15, 15], 
+        tooltipAnchor:  [0, 0],    
+        iconUrl: "./leaflet/images/icon_rotor_m.svg",       
+    });
        
 
     const flyIconNone = new L.icon({
@@ -66,7 +80,8 @@ const flyIcons = (props) =>{
     return {mediumMlat, mediumAdsb, 
         smallMlat, smallAdsb, 
         largeMlat,  largeAdsb, 
-        triangleMlat, triangleAdsb,         
+        triangleMlat, triangleAdsb,
+        rotorAdsb, rotorMlat,         
         flyIconNone}
 }
 

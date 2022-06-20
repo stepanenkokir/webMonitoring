@@ -20,6 +20,7 @@ const MarkersTrg = (props) =>{
         smallMlat, smallAdsb, 
         largeMlat,  largeAdsb,
         triangleMlat, triangleAdsb, 
+        rotorAdsb, rotorMlat, 
         flyIconNone} = flyIcons() 
 
     const nDt = new Date().getTime()
@@ -103,6 +104,9 @@ const MarkersTrg = (props) =>{
                 case "light":
                     icon = smallAdsb
                     break;
+                case "rotor":
+                    icon = rotorAdsb
+                    break;
                 default:
                     icon = smallAdsb
                     break;
@@ -123,6 +127,9 @@ const MarkersTrg = (props) =>{
                 case "light":
                     icon = smallMlat
                     break;
+                case "rotor":
+                    icon = rotorMlat
+                    break;                    
                 default:
                     icon = triangleMlat
                     break;
