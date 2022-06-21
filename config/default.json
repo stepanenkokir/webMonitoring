@@ -2,6 +2,7 @@
     "port":5000,
     "jwtSecret":"PJSC R&PA Almaz TetraI",
     "period":3,
+    "periodSelectCrd":1,
     "dbConfig":{
         "HOST": "10.0.10.5",
         "PORT":"8003",

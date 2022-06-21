@@ -1,7 +1,8 @@
-import {Container, Table, TableBody, TableCell,TableHead, TableContainer,  TableRow, Paper, Typography} from "@mui/material";
-import React, {  useState } from "react"
+import {Container, Table, TableBody, TableCell, TableContainer,  TableRow, Paper, Typography} from "@mui/material";
+import React, { useContext, useState } from "react"
 import { useHttp } from "../hooks/http.hooks";
 import { GlobalContext } from "../context/GlobalContext"
+import { TargetContext } from "../context/TargetContext"
 import ModalLogout from "./ModalLogout";
 
 export const ListPage = () =>{     
@@ -11,7 +12,9 @@ export const ListPage = () =>{
    const [logout, setLogout] = useState(false);
   
    const {loading, request} = useHttp();  
-   const auth = React.useContext(GlobalContext)
+   const auth = useContext(GlobalContext)
+
+   const trg = useContext(TargetContext)
     
    const timeoutList = React.useRef(null);   
 
@@ -29,8 +32,9 @@ export const ListPage = () =>{
        }
    }
 
-   const handleClick = (info)=>{
-        console.log("Click!!", info);       
+   const handleClick = (info)=>{    
+       // console.log("Click!!", info, info.mode_s+info.callsign);
+        trg.key= info.mode_s+info.callsign      
    }  
 
    React.useEffect(() =>{           
@@ -55,7 +59,7 @@ export const ListPage = () =>{
                             hover                             
                             key={row.mode_s+id} 
                             onClick={() => {                             
-                                handleClick(row.mode_s)                         
+                                handleClick(row)                         
                             }}                             
                         >                                                
                             <TableCell>

@@ -83,7 +83,7 @@ export const StatusPage = () =>{
     return (         
         <Container component="main" maxWidth="xl">            
             {logout && <ModalLogout/>}              
-            <Stack spacing={2} sx={{ maxWidth: 200 }}>
+            <Stack spacing={2} sx={{ maxWidth: 250 }}>
             <Snackbar
                 anchorOrigin={{vertical:'top', horizontal:'left'}}
                 open={stateToast.open}
@@ -106,9 +106,7 @@ export const StatusPage = () =>{
                 size="small"  >
               <TableHead >
                 <TableRow>                    
-                    <TableCell sx={{ maxWidth: 50}}><b>Позиция</b></TableCell>                   
-                    <TableCell  sx={{ maxWidth: 50}}>ГНСС</TableCell>
-                    <TableCell  sx={{ maxWidth: 50}}>Задержка</TableCell>
+                    <TableCell sx={{ maxWidth: 40}}><b>Позиция</b></TableCell>                                       
                 </TableRow>
             </TableHead>
             <TableBody>                  
@@ -125,9 +123,7 @@ export const StatusPage = () =>{
                         background: row.st!=='running'?(row.err!=20?'#EF5350':'#FFFF00'):
                             row.gps==='fix'?'#B2FF59':'#FFF000'
                     }}>                    
-                  <TableCell sx={{wordWrap:'break-word'}} >{row.name}</TableCell>                  
-                  <TableCell  sx={{ maxWidth: 50}}>{row.gps==='fix'?'OK':"-"}</TableCell>
-                  <TableCell  sx={{ maxWidth: 50}}>{(+row.delay).toFixed(2)}</TableCell>
+                  <TableCell sx={{wordWrap:'break-word'}} >{row.name}</TableCell>                                   
               </TableRow>                           
             ))}
             </TableBody> 

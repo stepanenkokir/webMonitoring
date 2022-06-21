@@ -1,14 +1,25 @@
-import React, { useEffect } from 'react'
-import { TileLayer, LayersControl, useMapEvents, FeatureGroup} from 'react-leaflet'
+import React, { useContext, useEffect } from 'react'
+import { TileLayer, LayersControl, useMapEvents, FeatureGroup, useMap} from 'react-leaflet'
 import {Positions, ZoneULP, ZoneULR } from './Positions';
 import { GlobalContext } from '../context/GlobalContext';
+import { TargetContext } from '../context/TargetContext';
 
 const mTitAttrOSM='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> | <a href="http://lemz.ru/автоматизированные-системы/" target="_blank">ПАО "НПО "Алмаз" НПЦ-СПб</a>';
 const mTitAttrSat='&copy; <a href="https://www.google.com/intl/ru_ru/help/terms_maps/">GoogleMaps</a> | <a href="http://lemz.ru/автоматизированные-системы/" target="_blank">ПАО "НПО "Алмаз" НПЦ-СПб</a>';
 
 const Layers = (props) => { 
 	//console.log("Render Layers", props)	
-	const ctxt = React.useContext(GlobalContext)
+	const ctxt = useContext(GlobalContext)
+	const trg = useContext(TargetContext)
+	const mMap = useMap();
+
+
+	useEffect(()=>{
+		if (trg.flyTo[1]){		
+			mMap.flyTo(trg.flyTo)
+		}
+		
+	},[trg.flyTo])
 
 	const mapE = useMapEvents({		
 		zoomend: () => {		  

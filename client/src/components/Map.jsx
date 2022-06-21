@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FeatureGroup, MapContainer } from 'react-leaflet'
-
 import Layers from './Layers'
 import MarkersTrg from './MarkersTrg'
 
 
 const Map = (props) => {
-    const mapCenter = localStorage.getItem('centerM')?JSON.parse(localStorage.getItem('centerM')):[59.96906375537783, 30.32941039614578]           
+    const [mapCenter,setMapCenter] = useState(localStorage.getItem('centerM')?JSON.parse(localStorage.getItem('centerM')):[59.96906375537783, 30.32941039614578])
     const zoom= localStorage.getItem('zoomM')?localStorage.getItem('zoomM'):10
-    const { Markers, currInfo, clearKey, clearKeyAndLines } = MarkersTrg()
-   // console.log("Render Map ", currInfo)
+    const { Markers, currInfo, clearKey, clearKeyAndLines } = MarkersTrg()    
+   // console.log("Render Map ", currInfo)   
 
     useEffect(()=>{
         if (currInfo){                        
@@ -17,9 +16,9 @@ const Map = (props) => {
         }
         else            
             props.info()
-    },[currInfo])
+    },[currInfo])   
 
-    const handleClear = () =>{
+    const handleClear = () =>{       
         clearKeyAndLines()
         props.info()
     }
@@ -28,8 +27,7 @@ const Map = (props) => {
         handleClear()         
     },[props.clrKey])
 
-    return  (       
-                 
+    return  (                        
         <MapContainer 
             center={mapCenter}                             
             zoom={zoom}    

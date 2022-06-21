@@ -2,7 +2,8 @@ import React, {useState, useContext,  useRef, useEffect} from 'react'
 import L from 'leaflet'
 import { useHttp } from "../hooks/http.hooks";
 import { GlobalContext } from '../context/GlobalContext';
-import {FeatureGroup,  Marker, Tooltip, Polyline} from 'react-leaflet'
+import { TargetContext } from "../context/TargetContext";
+import {FeatureGroup,  Marker, Tooltip, Polyline, useMap} from 'react-leaflet'
 import "leaflet-rotatedmarker";
 import flyIcons from './flyIcons';
 
@@ -12,10 +13,16 @@ const MarkersTrg = (props) =>{
     const [markers, setMarkers] = useState([])
     const [lines, setLines] = useState([])
     const [currInfo, setCurrInfo] = useState()
-    const [currKey, setCurrKey] = useState(-1)
+    const [currKey, setCurrKey] = useState(-1)   
     const ctxt = useContext(GlobalContext)
-    const timeoutContext = useRef(null);
+    const timeoutContext = useRef(null)
+    const timeoutRecalc = useRef(null)
+    
     const { request} = useHttp();
+
+    const trg = useContext(TargetContext)
+   
+
     const  {mediumAdsb, mediumMlat, 
         smallMlat, smallAdsb, 
         largeMlat,  largeAdsb,
@@ -24,37 +31,34 @@ const MarkersTrg = (props) =>{
         flyIconNone} = flyIcons() 
 
     const nDt = new Date().getTime()
-   // console.log("render Markers!!",nDt);
 
+    const markerRefs = useRef([])
 
     const findMarkerIndex =  (key)=>{        
         const indx = markers.map(mrk=>mrk.key).indexOf(key)        
         if (markers[indx]){
-        //   console.log("MARKERS: find ",key,markers[indx])
-                
-            setCurrInfo(markers[indx].props.prop)
-            const c_crd=[ markers[indx].props.prop.geometry.coordinates[1],
-                          markers[indx].props.prop.geometry.coordinates[0]]
+          //  console.log("MARKERS: find ",key,markers[indx], markers[indx].props.position) 
+            const arrLines = []               
+         
+            setCurrInfo(markers[indx].props)
+            const c_crd=[ markers[indx].props.position[0],markers[indx].props.position[1]]
             //lines
-            const listStG = markers[indx].props.prop.properties['visible-stations'].split(',')
-            const listStE = markers[indx].props.prop.properties['error-stations'].split(',')           
-            const arrLines = []
+            const listStG = markers[indx].props.prop['visible-stations'].split(',')
+            const listStE = markers[indx].props.prop['error-stations'].split(',')                     
            // console.log(listStG,listStE)
             if ( ctxt.showLines){
-
                 if (listStG.length>0){                
                     const linesCrd = listStG.map(i=>{
                         if (i!=='')
                             return [posCrd[i] , c_crd]
                     })                        
-                arrLines.push(<Polyline key={'gdLines'} pathOptions={{ weight:1, color: 'blue' }} positions={linesCrd} />)
+                    arrLines.push(<Polyline key={'gdLines'} pathOptions={{ weight:1, color: 'blue' }} positions={linesCrd} />)
                 }
                 if (listStE.length>0){                
                     const linesCrd = listStE.map(i=>{                    
                         if (i!==''){                       
                             return [posCrd[i] , c_crd]
-                        }
-                            
+                        }                            
                     })                
                     if (linesCrd[0])           
                         arrLines.push(<Polyline key={'bdLines'} pathOptions={{ weight:1, color: 'red' }} positions={linesCrd} />)
@@ -74,11 +78,9 @@ const MarkersTrg = (props) =>{
             }
             
         }            
-    }
+    }  
 
-    const handleClick = (key,e)=>{ 
-       // console.log("Press ",key)
-        findMarkerIndex(key) 
+    const handleClick = (key,e)=>{      
         setCurrKey(key)       
     }
 
@@ -104,11 +106,11 @@ const MarkersTrg = (props) =>{
                 case "light":
                     icon = smallAdsb
                     break;
-                case "rotor":
+                case "rotorcraft":
                     icon = rotorAdsb
                     break;
                 default:
-                    icon = smallAdsb
+                    icon = triangleAdsb
                     break;
             }
         
@@ -127,7 +129,7 @@ const MarkersTrg = (props) =>{
                 case "light":
                     icon = smallMlat
                     break;
-                case "rotor":
+                case "rotorcraft":
                     icon = rotorMlat
                     break;                    
                 default:
@@ -143,36 +145,37 @@ const MarkersTrg = (props) =>{
     }    
 
     const parseData = (dataP) =>{       
-       // console.log("parseData",dataP)
-        const lTime =  new Date().getTime()/1000               
+     //  console.log("parseData",dataP, markerRefs)
         const arrTrg=[]
+        const lTime =  new Date().getTime()/1000
+        markerRefs.current.length = 0;
 
         for (let i=0;i<dataP.length;i++){
-            const data = dataP[i]           
-            const key = data.properties.mode+data.properties.icao+data.properties.name
-            const position = [data.geometry.coordinates[1],data.geometry.coordinates[0]]            
-
-            const cIicon = selectIcon(data.properties)
+            const data = dataP[i]                       
+            const cIicon = selectIcon(data.prop)
             arrTrg.push(<Marker                       
-                rotationAngle={data.properties.heading}
+                rotationAngle={data.prop.heading}
                 rotationOrigin="center" 
-                key = {key}                               
+                key = {data.key}   
+                ref = {ref=>markerRefs.current.push(ref)}                            
                 eventHandlers={{
-                    mousedown: (e)=>handleClick(key,e)
+                    mousedown: (e)=>handleClick(data.key,e)
                 }}
-               
-                prop = {data}
-                icon={cIicon}
-                position={position}                                         
+                lTime = {lTime}
+                lKey = {data.key}
+                prop = {data.prop}
+                icon={cIicon}               
+                position={data.pos}
+                pos_shift={data.pos_shift}
             >
                 <Tooltip direction="top">
-                    {data.properties.icao.toUpperCase()+" "+
-                    data.properties.name}
+                    {data.prop.icao.toUpperCase()+" "+
+                    data.prop.name}
                 </Tooltip>
             </Marker>
             )            
         }       
-        setMarkers(arrTrg)
+        setMarkers(arrTrg)        
     }
 
     const clearKey = ()=>{
@@ -193,9 +196,9 @@ const MarkersTrg = (props) =>{
                 Authorization: `Bearer ${ctxt.token}`
             });                                           
             if (response) 
-                if (response.data)
-                    if (response.data.features)                    
-                        parseData(response.data.features);                       
+                if (response.data)                
+                    parseData(response.data);                       
+            
         }catch(e){
             console.log("Error CURRENT ==> ",e);
             if (String(e).includes('401') || String(e).includes('SyntaxError')) 
@@ -205,15 +208,33 @@ const MarkersTrg = (props) =>{
             }                
         }
     }
+
+    useEffect(()=>{
+        //console.log("CHANGE LIST KEY = ",trg.key, markers)        
+        const resM = markers.filter((m,i) =>(m.key.toUpperCase().includes(trg.key)))
+
+        if (resM.length>0)
+            if (resM[0].props){
+                //console.log("RESULT = ",resM[0].props.position)
+                trg.flyTo=resM[0].props.position
+            }
+    },[trg.key])
     
     useEffect(() =>{    
        // console.log("Update Markers CurrKey")  
         findMarkerIndex(currKey)                       
         timeoutContext.current = setInterval(()=>{                  
                 readContextFromServer()                                  
-        },5000);
+        },1000);
         return ()=> clearInterval(timeoutContext.current)    
     },[markers, currKey])   
+
+    // useEffect(() =>{            
+    //      timeoutRecalc.current = setInterval(()=>{                  
+    //             //recalc()
+    //      },200);
+    //      return ()=> clearInterval(timeoutRecalc.current)    
+    //  },[markers])   
     
     useEffect(() =>{           
         readContextFromServer()    

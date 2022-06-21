@@ -4,6 +4,7 @@ const config = require('config');
 const curl = require('curlrequest');
 const auth = require('../middleware/auth.middleware')
 
+const period = config.get('periodSelectCrd')
 
 const listRecv = {
     url: config.get('dbConfig').HOST+":"+config.get('dbConfig').PORT+"/mlat/status",  
@@ -35,6 +36,7 @@ const listRecv = {
   const status = {data:null, error:false}
   const positions = {data:null}
   const current = {data:null}
+  const current_old = []
   const tracks = {data:null}
 
   const infoREC = {
@@ -72,19 +74,43 @@ const loadPositions = async ()=>{
     } 
 }
 
+const findIndex = (key)=>{
+
+}
 
 const loadCurrent = async ()=>{
     try {           
         //console.log("LOAD CURRENT",loadCurrentUrl)        
         curl.request(loadCurrentUrl, (err, stdout)=>{                     
-            // const c_data = JSON.parse(stdout)  
+            const c_data = JSON.parse(stdout)  
             // const n_data = [];
 
-            // console.log("current",c_data)
-            
+            if (c_data)
+                if (c_data.features){
+                    //console.log("current",c_data.features.length)
+                    const arr_c = []                    
+                    for (let i=0;i<c_data.features.length;i++){
+                        const dt = c_data.features[i]
+                        const key = dt.properties.mode+dt.properties.icao+dt.properties.name
+                        const pos = [dt.geometry.coordinates[1],dt.geometry.coordinates[0],dt.geometry.coordinates[2]]
+                        let indx = -1
+                        const pos_shift = {dLat:0, dLon:0, dAlt:0}
+                        indx = current_old.map(c=>c.key).indexOf(key)
+                        //console.log(i,key, pos,current_old,indx)
+                        if (indx>-1){
+                            pos_shift.dLat = (pos[0]-current_old[indx].pos[0])/period
+                            pos_shift.dLon = (pos[1]-current_old[indx].pos[1])/period
+                            pos_shift.dAlt = (pos[2]-current_old[indx].pos[2])/period
+                        }
+                            
+                        arr_c.push({key:key, pos:pos, pos_shift:pos_shift, prop:dt.properties})
+                    }
+                    current_old.length=0
+                    current_old.push(...arr_c)
+                }                        
             // current.data = n_data
             
-            current.data =  JSON.parse(stdout)  
+            current.data =  current_old  
        })
     }
     catch (error) {
@@ -150,6 +176,7 @@ const asyncLoader = async ()=>{
 }
 
 const statusTimer = ()=>{
+    asyncLoader();
     const st_tmr = setInterval(async ()=>{                   
         await asyncLoader();
     },10000);
@@ -157,9 +184,10 @@ const statusTimer = ()=>{
 }
 
 const currentTimer = ()=>{
+    loadCurrent()
     const cr_tmr = setInterval(async ()=>{                   
         await loadCurrent();        
-    },5000);
+    },period*1000);
     return ()=> clearInterval(cr_tmr)
 }
 
