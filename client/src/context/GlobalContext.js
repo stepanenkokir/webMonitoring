@@ -11,6 +11,7 @@ export const GlobalContext = createContext( {
     isAuthenticated: false,
     showMLAT:true, 
     showADSB:true,
-    showLines:true
+    showLines:true,
+    showMosqute:true
 
 })

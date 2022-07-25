@@ -6,7 +6,7 @@ import { TargetContext } from "../context/TargetContext"
 import ModalLogout from "./ModalLogout";
 
 export const ListPage = () =>{     
-   //console.log("render List!!");
+   console.log("render List!!");
    const [list, setList] = useState([]);  
    const [page, setPage] = useState(); 
    const [logout, setLogout] = useState(false);

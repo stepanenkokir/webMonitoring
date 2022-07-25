@@ -16,7 +16,8 @@ import {Link} from 'react-router-dom'
 const pages = [
     {title:'Карта', link:'/'},
     {title:'Наблюдение', link:'/list'},   
-    {title:'Статусы', link:'/stat'}];
+    {title:'Статусы', link:'/stat'},
+    {title:'Москит', link:'/mosq'}];
    
 
 const ResponsiveAppBar = () => {

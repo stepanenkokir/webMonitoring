@@ -14,6 +14,7 @@ export const useRoutes = (isAuthenticated) =>{
 					<Route path="/settings" element={<SettingsPage />} />
 					<Route path="/stat" element={<MapPage stat/>} />
 					<Route path="/list" element={<MapPage list />} />
+					<Route path="/mosq" element={<MapPage mosq />} />
 					<Route
 						path="*"
 						element={<Navigate to="/" />}

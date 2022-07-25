@@ -69,6 +69,14 @@ const flyIcons = (props) =>{
         tooltipAnchor:  [0, 0],    
         iconUrl: "./leaflet/images/icon_rotor_m.svg",       
     });
+
+    const mosquteIcon = new L.icon({
+        iconSize:     [30, 30], 
+        iconAnchor:   [15, 15], 
+        tooltipAnchor:  [0, 0],    
+        iconUrl: "./leaflet/images/mosquteIcon.svg",       
+    });
+    
        
 
     const flyIconNone = new L.icon({
@@ -82,7 +90,7 @@ const flyIcons = (props) =>{
         largeMlat,  largeAdsb, 
         triangleMlat, triangleAdsb,
         rotorAdsb, rotorMlat,         
-        flyIconNone}
+        flyIconNone, mosquteIcon}
 }
 
 export default flyIcons

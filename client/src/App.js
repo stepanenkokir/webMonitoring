@@ -12,6 +12,7 @@ export default function App() {
 	const showMLAT = true
 	const showADSB  = true
 	const showLines = true
+	const showMosqute = true
 
 	const [myroute, setMyRoute] = useState()
 
@@ -21,7 +22,7 @@ export default function App() {
 	
 	return (
 		<GlobalContext.Provider value={{
-			token,login, logout, userId, userName, isAuthenticated, showMLAT, showADSB, showLines
+			token,login, logout, userId, userName, isAuthenticated, showMLAT, showADSB, showLines, showMosqute
 		}}>
 			<BrowserRouter>
 				{isAuthenticated&&<Navbar /> }

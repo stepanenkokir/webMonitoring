@@ -14,7 +14,7 @@ const Layers = (props) => {
 	const mMap = useMap();
 
 
-	useEffect(()=>{
+	useEffect(()=>{		
 		if (trg.flyTo[1]){		
 			mMap.flyTo(trg.flyTo)
 		}
@@ -31,6 +31,10 @@ const Layers = (props) => {
 		overlayadd: (e)=>{
 			if (e.name===('МПСН')){
 				ctxt.showMLAT = true
+				//console.log("Enable MPSN",ctxt.showMLAT)
+			}
+			if (e.name===('МПСН')){
+				ctxt.showMosqute = true
 				//console.log("Enable MPSN",ctxt.showMLAT)
 			}
 			if (e.name===('АЗН-В')){
@@ -54,6 +58,10 @@ const Layers = (props) => {
 				//console.log("Disable MPSN",ctxt.showMLAT)
 			}
 
+			if (e.name===('МПСН')){
+				ctxt.showMosqute = false
+				//console.log("Enable MPSN",ctxt.showMLAT)
+			}
 			if (e.name===('АЗН-В')){
 				ctxt.showADSB = false
 			//	console.log("Disable ADSB",ctxt.showADSB)
@@ -111,6 +119,10 @@ const Layers = (props) => {
 					</FeatureGroup>
 				</LayersControl.Overlay>
 				<LayersControl.Overlay checked  name={'Линии '} >
+					<FeatureGroup>
+					</FeatureGroup>
+				</LayersControl.Overlay>
+				<LayersControl.Overlay checked  name={'"Москит"'} >
 					<FeatureGroup>
 					</FeatureGroup>
 				</LayersControl.Overlay>

@@ -7,7 +7,9 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import ModalLogout from "./ModalLogout";
 
-export const StatusPage = () =>{         
+export const StatusPage = () =>{   
+    
+    console.log("Render statuses")
     const {loading, request} = useHttp();    
     const auth = React.useContext(GlobalContext)
     const [names, setNames] = React.useState([]);

@@ -8,6 +8,7 @@ app.use(express.json({extended: true}));
 
 app.use('/db',require('./routes/db.routes'))
 app.use('/mlat',require('./routes/mlat.routes'))
+app.use('/mosquite',require('./routes/mosquite.routes'))
 
 //if (process.env.NODE_ENV === 'production'){
     console.log("Production Start!!");

@@ -36,7 +36,8 @@ const Map = (props) => {
             style={{ height: '100%', width: '100%' }}           
         >                                       
             <Layers click={handleClear} />            
-            <Markers />            
+            <Markers />              
+            
            
         </MapContainer>
     )

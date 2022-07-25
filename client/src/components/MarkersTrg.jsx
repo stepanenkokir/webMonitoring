@@ -11,6 +11,7 @@ const posCrd = JSON.parse(localStorage.getItem("positions"))
 
 const MarkersTrg = (props) =>{        
     const [markers, setMarkers] = useState([])
+    const [mosquites, setMosquites] = useState([])
     const [lines, setLines] = useState([])
     const [currInfo, setCurrInfo] = useState()
     const [currKey, setCurrKey] = useState(-1)   
@@ -28,7 +29,7 @@ const MarkersTrg = (props) =>{
         largeMlat,  largeAdsb,
         triangleMlat, triangleAdsb, 
         rotorAdsb, rotorMlat, 
-        flyIconNone} = flyIcons() 
+        flyIconNone, mosquteIcon} = flyIcons() 
 
     const nDt = new Date().getTime()
 
@@ -89,6 +90,7 @@ const MarkersTrg = (props) =>{
             <FeatureGroup>                
                 {markers}
                 {lines}
+                {mosquites}
             </FeatureGroup>            
         )
     }
@@ -138,8 +140,7 @@ const MarkersTrg = (props) =>{
             }   
             // if (mode.heading==='nan' && mode[mode-a]==='0000')   
             //     icon = triangleMlat        
-        }
-            
+        }        
        //console.log(mode.icao, mode.mode, mode.type, mode.heading ,mode.heading==='nan')
         return icon
     }    
@@ -178,6 +179,31 @@ const MarkersTrg = (props) =>{
         setMarkers(arrTrg)        
     }
 
+    const parseMosquiteData = (data) =>{       
+          // console.log("parseMosquite Data",data, data.length)
+           const arrTrg=[]
+           const lTime =  new Date().getTime()/1000           
+   
+           for (let i=0;i<data.length;i++){
+               const dat = data[i]                 
+               arrTrg.push(<Marker                                          
+                   key = {dat.icao}                   
+                   lTime = {dat.time}
+                   lIcao = {dat.icao} 
+                   lAlt = {dat.alt}                  
+                   icon={mosquteIcon}               
+                   position={L.latLng(dat.lat, dat.lng)} 
+               >
+                   <Tooltip direction="top">
+                       {dat.icao.toUpperCase()+" ("+
+                       dat.alt+")"}
+                   </Tooltip>
+               </Marker>
+               )            
+           }              
+           setMosquites(arrTrg)                   
+    }
+
     const clearKey = ()=>{
       //  console.log("ClearKey!!")
         setCurrKey(-1)
@@ -201,6 +227,29 @@ const MarkersTrg = (props) =>{
             
         }catch(e){
             console.log("Error CURRENT ==> ",e);
+            if (String(e).includes('401') || String(e).includes('SyntaxError')) 
+            {
+                console.log("Send logout!!");
+                ctxt.logout();
+            }                
+        }
+
+        //Mosquite
+
+        try{             
+            const response = await request('/mosquite/current','GET',null,{
+                Authorization: `Bearer ${ctxt.token}`
+            });                                           
+           
+            if (response) 
+                if (response.data)    {
+                    parseMosquiteData(response.data);                       
+                    //console.log("MOSQUTE RES = ",response.data)
+                }            
+                    
+            
+        }catch(e){
+            console.log("Error CURRENT MOSQUTE ==> ",e);
             if (String(e).includes('401') || String(e).includes('SyntaxError')) 
             {
                 console.log("Send logout!!");
@@ -240,7 +289,7 @@ const MarkersTrg = (props) =>{
         readContextFromServer()    
     },[])   
 
-    return {Markers, currInfo, clearKey, clearKeyAndLines}
+    return {Markers,mosquites, currInfo, clearKey, clearKeyAndLines}
 }
 
 export default MarkersTrg

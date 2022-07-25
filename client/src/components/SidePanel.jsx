@@ -6,6 +6,7 @@ import { StatusPage } from "./StatusPage"
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from "react-router-dom";
+import { MosquitePage } from "./MosquitePage";
 
 const drawerWidth = 300;
 
@@ -30,22 +31,26 @@ export const SidePanel = (props) =>{
     useEffect(()=>{                
         if (props)
         if (props.props){           
+            setOpen(false);
             if (props.props.stat){            
                 setDrawName("Статусы")
                 setDrawData(<StatusPage/>)
                 setOpen(true);
-            }
-            else
+            }           
             if (props.props.list){
                 setDrawName("СписокВС")
                 setDrawData(<ListPage/>)
                 setOpen(true);
-            }   
-            else
-                setOpen(false);         
+            }  
+
+            if (props.props.mosq){
+                setDrawName("Москит")
+                setDrawData(<MosquitePage />)
+                setOpen(true);
+            }               
         }
         else
-                setOpen(false);
+            setOpen(false);
         
 
     },[props])   
