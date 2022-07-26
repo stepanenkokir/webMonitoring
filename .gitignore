@@ -2,6 +2,8 @@
 
 # dependencies
 /client/node_modules
+/config/default.json
+/config/defMon.json
 /node_modules
 /.pnp
 .pnp.js

@@ -5,7 +5,10 @@ const auth = require('../middleware/auth.middleware')
 const dgram = require('dgram')
 const server = dgram.createSocket('udp4');
 
-const current = {data:[]}
+const current = {
+    data:[],
+    plots:[]
+}
 
 server.on('error', (err) => {
     console.log(`MOSQUITE server error:\n${err.stack}`);
@@ -17,11 +20,15 @@ const updateCurrent = (data)=>{
     for (let i=0;i<current.data.length;i++){
         //console.log (i, current.data[i], nTm.getHours())
         if (current.data[i].icao == data.icao){
+            current.plots[i].push([data.lat,data.lng]) 
+            if (current.plots[i].length>1000)
+                current.plots[i].splice(0)           
             current.data[i] = data            
             return
         }        
     }
     current.data.push(data)
+    current.plots.push([[data.lat,data.lng]])
 }
 
 server.on('message', (msg, rinfo) => {

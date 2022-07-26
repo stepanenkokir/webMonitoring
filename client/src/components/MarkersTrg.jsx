@@ -1,9 +1,9 @@
 import React, {useState, useContext,  useRef, useEffect} from 'react'
-import L from 'leaflet'
+import L, { Point } from 'leaflet'
 import { useHttp } from "../hooks/http.hooks";
 import { GlobalContext } from '../context/GlobalContext';
 import { TargetContext } from "../context/TargetContext";
-import {FeatureGroup,  Marker, Tooltip, Polyline, useMap} from 'react-leaflet'
+import {FeatureGroup,  Marker, Tooltip, Polyline, Circle} from 'react-leaflet'
 import "leaflet-rotatedmarker";
 import flyIcons from './flyIcons';
 
@@ -179,13 +179,15 @@ const MarkersTrg = (props) =>{
         setMarkers(arrTrg)        
     }
 
-    const parseMosquiteData = (data) =>{       
+    const parseMosquiteData = (res) =>{       
           // console.log("parseMosquite Data",data, data.length)
            const arrTrg=[]
-           const lTime =  new Date().getTime()/1000           
+
+         //  console.log(res.data)
    
-           for (let i=0;i<data.length;i++){
-               const dat = data[i]                 
+           for (let i=0;i<res.data.length;i++){
+               const dat = res.data[i]                 
+               const plots = res.plots[i]
                arrTrg.push(<Marker                                          
                    key = {dat.icao}                   
                    lTime = {dat.time}
@@ -199,7 +201,20 @@ const MarkersTrg = (props) =>{
                        dat.alt+")"}
                    </Tooltip>
                </Marker>
-               )            
+               )    
+               //console.log(i, plots)  
+               const oldCrd=[]    
+                for (let j=0;j<plots.length;j++){
+                    if (oldCrd.includes(plots[j]))
+                        continue;
+                    oldCrd.push(plots[j])
+                    arrTrg.push(<Circle 
+                        key={"plt"+j}
+                        center={plots[j]} 
+                        radius={1} 
+                    />
+                    )
+               } 
            }              
            setMosquites(arrTrg)                   
     }
@@ -243,8 +258,8 @@ const MarkersTrg = (props) =>{
            
             if (response) 
                 if (response.data)    {
-                    parseMosquiteData(response.data);                       
-                    //console.log("MOSQUTE RES = ",response.data)
+                    parseMosquiteData(response);                       
+                    //console.log("MOSQUTE RES = ",response)
                 }            
                     
             
