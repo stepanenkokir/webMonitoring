@@ -16,7 +16,7 @@ const Layers = (props) => {
 
 	useEffect(()=>{		
 		if (trg.flyTo[1]){		
-			mMap.flyTo(trg.flyTo)
+			mMap.flyTo(trg.flyTo,17)
 		}
 		
 	},[trg.flyTo])
