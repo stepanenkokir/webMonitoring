@@ -19,6 +19,8 @@ export const MosquitePage = () =>{
 
         for (let i=0;i<mosquites.length;i++){
             const tblD = mosquites[i].props
+            if (!tblD.lIcao)
+                continue;
             tbl.push(
                 <TableRow hover key={"mosqRow"+i} onClick = {()=>{handleClick(tblD.position)}}>                                                
                     <TableCell>
